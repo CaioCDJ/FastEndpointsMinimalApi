@@ -17,18 +17,14 @@ public class userRepo{
         return users;
      }
 
-    public static async Task<User> verifyIfExists(LoginRequest login){
-
-        User user = await context.users.FirstAsync(
+    public static async Task<User> verifyIfExists(LoginRequest login)
+        => await context.users.FirstAsync(
             x=> x.email ==login.email && x.password == login.password);
 
-        return user; 
-
-    }
-
+    
     public static async Task<User> getById(Guid id) 
         => await context.users.FirstOrDefaultAsync(x=> x.id == id);
-    public static async Task<bool> add(UserRequest req){
+    public static async Task add(UserRequest req){
 
         await context.users.AddAsync(new User(){
             id=Guid.NewGuid(),
@@ -37,17 +33,7 @@ public class userRepo{
             name=req.name
         });
         
-        try{
-            await context.SaveChangesAsync();
-        }
-        catch (System.Exception)
-        {
-            
-            return false;    
-        }
-        
-        return true;
-        
+        await context.SaveChangesAsync();
     }
 
     public static  async Task upadate(User user){
