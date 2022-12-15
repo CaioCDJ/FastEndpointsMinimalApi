@@ -24,3 +24,4 @@ Apos isso para executar o projeto
 - <a href="https://www.nuget.org/packages/FastEndpoints"> FastEndpoint</a>
 - <a href="https://www.nuget.org/packages/FastEndpoints.Security">FastEndpoint.Security</a>
 - <a href="https://www.nuget.org/packages/FastEndpoints.Swagger">FastEndpoint.Swagger</a>
+

@@ -6,11 +6,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// adicionando o fastApi
 builder.Services.AddFastEndpoints();
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddSwaggerDoc(); //add this
-builder.Services.AddAuthenticationJWTBearer("123456789abcdefgh"); //add this
+builder.Services.AddAuthenticationJWTBearer("defaultAndStrongPassword"); //add this
 
 var app = builder.Build();
 app.UseAuthorization();

@@ -2,10 +2,18 @@ using Api.Models;
 using Api.repo;
 using FastEndpoints;
 using FastEndpoints.Security;
+using Api.data;
 
 namespace Api;
 
 public class LoginEndPoint : Endpoint<LoginRequest>{
+
+    private readonly AppDbContext _context;
+    private readonly userRepo _userRepo;
+
+    public LoginEndPoint(){
+      _userRepo = new userRepo(_context);
+    }
 
     public override void Configure()
     {
@@ -19,7 +27,7 @@ public class LoginEndPoint : Endpoint<LoginRequest>{
 
     public override async Task HandleAsync(LoginRequest req,CancellationToken ct){
 
-        User user = await userRepo.verifyIfExists(req);
+        User user = await _userRepo.verifyIfExists(req);
 
         if(user is null){
             await SendNotFoundAsync();
@@ -32,8 +40,6 @@ public class LoginEndPoint : Endpoint<LoginRequest>{
                 roles: new[] { "Admin" },
                 permissions: new[] { "authenticated" });
  
-        Console.WriteLine(jwtToken);
-
         await SendAsync(new {
             user,
             jwtToken
